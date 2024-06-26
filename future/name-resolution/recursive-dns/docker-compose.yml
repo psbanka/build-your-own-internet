@@ -1,0 +1,301 @@
+version: "3.0"
+services:
+  # Comcast network
+  client-c1:
+    container_name: "build-your-own-internet-client-c1"
+    build: .
+    image: "build-your-own-internet-host"
+    hostname: client-c1
+    networks:
+      one-one-net:
+        ipv4_address: 1.1.0.200
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    sysctls:
+      - net.ipv4.ip_forward=0
+  client-c2:
+    container_name: "build-your-own-internet-client-c2"
+    build: .
+    image: "build-your-own-internet-host"
+    hostname: client-c2
+    networks:
+      one-three-net:
+        ipv4_address: 1.3.0.200
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    sysctls:
+      - net.ipv4.ip_forward=0
+
+  resolver-c:
+    container_name: "build-your-own-internet-resolver-c"
+    build: .
+    image: "build-your-own-internet-host"
+    hostname: resolver-c
+    networks:
+      one-two-net:
+        ipv4_address: 1.2.0.100
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    sysctls:
+      - net.ipv4.ip_forward=0
+
+  router-c2:
+    container_name: "build-your-own-internet-router-c2"
+    build: .
+    image: "build-your-own-internet-router"
+    hostname: router-c2
+    networks:
+      one-three-net:
+        ipv4_address: 1.3.0.2
+      one-two-net:
+        ipv4_address: 1.2.0.2
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    sysctls:
+      - net.ipv4.ip_forward=1
+      - net.ipv4.conf.all.rp_filter=0
+      - net.ipv4.conf.eth0.rp_filter=0
+      - net.ipv4.conf.eth1.rp_filter=0
+  router-c3:
+    container_name: "build-your-own-internet-router-c3"
+    build: .
+    image: "build-your-own-internet-router"
+    hostname: router-c3
+    networks:
+      one-one-net:
+        ipv4_address: 1.1.0.3
+      one-two-net:
+        ipv4_address: 1.2.0.3
+      two-one-net:
+        ipv4_address: 2.1.0.3
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    sysctls:
+      - net.ipv4.ip_forward=1
+      - net.ipv4.conf.all.rp_filter=0
+      - net.ipv4.conf.eth0.rp_filter=0
+      - net.ipv4.conf.eth1.rp_filter=0
+      - net.ipv4.conf.eth2.rp_filter=0
+
+  # Zayo
+  router-z5:
+    container_name: "build-your-own-internet-router-z5"
+    build: .
+    image: "build-your-own-internet-router"
+    hostname: router-z5
+    networks:
+      two-five-six-net:
+        ipv4_address: 2.5.6.5
+      two-five-seven-net:
+        ipv4_address: 2.5.7.5
+      two-five-eight-net:
+        ipv4_address: 2.5.8.5
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    sysctls:
+      - net.ipv4.ip_forward=1
+      - net.ipv4.conf.all.rp_filter=0
+      - net.ipv4.conf.eth0.rp_filter=0
+      - net.ipv4.conf.eth1.rp_filter=0
+      - net.ipv4.conf.eth2.rp_filter=0
+  router-z6:
+    container_name: "build-your-own-internet-router-z6"
+    build: .
+    image: "build-your-own-internet-router"
+    hostname: router-z6
+    networks:
+      two-one-net:
+        ipv4_address: 2.1.0.6
+      two-five-six-net:
+        ipv4_address: 2.5.6.6
+      two-six-seven-net:
+        ipv4_address: 2.6.7.6
+      two-six-eight-net:
+        ipv4_address: 2.6.8.6
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    sysctls:
+      - net.ipv4.ip_forward=1
+      - net.ipv4.conf.all.rp_filter=0
+      - net.ipv4.conf.eth0.rp_filter=0
+      - net.ipv4.conf.eth1.rp_filter=0
+      - net.ipv4.conf.eth2.rp_filter=0
+      - net.ipv4.conf.eth3.rp_filter=0
+  router-z7:
+    container_name: "build-your-own-internet-router-z7"
+    build: .
+    image: "build-your-own-internet-router"
+    hostname: router-z7
+    networks:
+      two-three-net:
+        ipv4_address: 2.3.0.7
+      two-four-net:
+        ipv4_address: 2.4.0.7
+      two-five-seven-net:
+        ipv4_address: 2.5.7.7
+      two-six-seven-net:
+        ipv4_address: 2.6.7.7
+      two-seven-eight-net:
+        ipv4_address: 2.7.8.7
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    sysctls:
+      - net.ipv4.ip_forward=1
+      - net.ipv4.conf.all.rp_filter=0
+      - net.ipv4.conf.eth0.rp_filter=0
+      - net.ipv4.conf.eth1.rp_filter=0
+      - net.ipv4.conf.eth2.rp_filter=0
+      - net.ipv4.conf.eth3.rp_filter=0
+      - net.ipv4.conf.eth4.rp_filter=0
+  router-z8:
+    container_name: "build-your-own-internet-router-z8"
+    build: .
+    image: "build-your-own-internet-router"
+    hostname: router-z8
+    networks:
+      two-eight-net:
+        ipv4_address: 2.8.0.8
+      two-five-eight-net:
+        ipv4_address: 2.5.8.8
+      two-six-eight-net:
+        ipv4_address: 2.6.8.8
+      two-seven-eight-net:
+        ipv4_address: 2.7.8.8
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    sysctls:
+      - net.ipv4.ip_forward=1
+      - net.ipv4.conf.all.rp_filter=0
+      - net.ipv4.conf.eth0.rp_filter=0
+      - net.ipv4.conf.eth1.rp_filter=0
+      - net.ipv4.conf.eth2.rp_filter=0
+      - net.ipv4.conf.eth3.rp_filter=0
+
+networks:
+  one-one-net:
+    name: "build-your-own-internet-one-one-net"
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: 'false'
+    ipam:
+      driver: default
+      config:
+        - subnet: 1.1.0.0/16
+  one-two-net:
+    name: "build-your-own-internet-one-two-net"
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: 'false'
+    ipam:
+      driver: default
+      config:
+        - subnet: 1.2.0.0/16
+  one-three-net:
+    name: "build-your-own-internet-one-three-net"
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: 'false'
+    ipam:
+      driver: default
+      config:
+        - subnet: 1.3.0.0/16
+  two-one-net:
+    name: "build-your-own-internet-two-one-net"
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: 'false'
+    ipam:
+      driver: default
+      config:
+        - subnet: 2.1.0.0/16
+
+  two-three-net:
+    name: "build-your-own-internet-two-three-net"
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: 'false'
+    ipam:
+      driver: default
+      config:
+        - subnet: 2.3.0.0/16
+  two-four-net:
+    name: "build-your-own-internet-two-four-net"
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: 'false'
+    ipam:
+      driver: default
+      config:
+        - subnet: 2.4.0.0/16
+  two-eight-net:
+    name: "build-your-own-internet-two-eight-net"
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: 'false'
+    ipam:
+      driver: default
+      config:
+        - subnet: 2.8.0.0/16
+  two-six-seven-net:
+    name: "build-your-own-internet-two-six-seven-net"
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: 'false'
+    ipam:
+      driver: default
+      config:
+        - subnet: 2.6.7.0/24
+  two-six-eight-net:
+    name: "build-your-own-internet-two-six-eight-net"
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: 'false'
+    ipam:
+      driver: default
+      config:
+        - subnet: 2.6.8.0/24
+  two-five-six-net:
+    name: "build-your-own-internet-two-five-six-net"
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: 'false'
+    ipam:
+      driver: default
+      config:
+        - subnet: 2.5.6.0/24
+  two-five-seven-net:
+    name: "build-your-own-internet-two-five-seven-net"
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: 'false'
+    ipam:
+      driver: default
+      config:
+        - subnet: 2.5.7.0/24
+  two-seven-eight-net:
+    name: "build-your-own-internet-two-seven-eight-net"
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: 'false'
+    ipam:
+      driver: default
+      config:
+        - subnet: 2.7.8.0/24
+  two-five-eight-net:
+    name: "build-your-own-internet-two-five-eight-net"
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: 'false'
+    ipam:
+      driver: default
+      config:
+        - subnet: 2.5.8.0/24
